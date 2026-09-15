@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Full Menu — THE Salon | The Himalayan Experience</title>
+  <meta name="description" content="The complete service menu and pricing at THE Salon, Siliguri.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;-webkit-font-smoothing:antialiased;text-wrap:pretty;}
+    *{box-sizing:border-box;}
+    a{color:inherit;text-decoration:none;}
+    a:hover{opacity:0.72;}
+  </style>
+</helmet>
+<div style="--ivory:oklch(0.97 0.014 75);--cream:oklch(0.945 0.016 72);--ink:oklch(0.24 0.014 55);--stone:oklch(0.5 0.02 60);--forest:oklch(0.3 0.045 150);--forest-deep:oklch(0.22 0.04 150);--brass:oklch(0.64 0.07 80);--line:oklch(0.85 0.015 70);font-family:'Work Sans',sans-serif;color:var(--ink);background:var(--ivory);min-height:100vh;">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:clamp(18px,3vw,26px) clamp(20px,5vw,56px);border-bottom:1px solid var(--line);">
+    <a href="index.html" style="font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--stone);">&larr; THE Salon</a>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:0.04em;">Full Menu</span>
+  </header>
+
+  <section style="padding:clamp(56px,9vw,96px) clamp(20px,6vw,64px) clamp(30px,5vw,40px);text-align:center;">
+    <p style="font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--brass);margin:0 0 14px;">Pause. Breathe. Belong.</p>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.2rem,5vw,3.6rem);margin:0 0 20px;">The Ritual Menu</h1>
+    <p style="font-size:1rem;color:var(--stone);max-width:44ch;margin:0 auto;line-height:1.7;">We use only premium products for our hair treatments. Prices are as listed on our service card at Salbari.</p>
+  </section>
+
+  <div style="display:flex;justify-content:center;gap:clamp(20px,4vw,40px);padding-bottom:clamp(32px,5vw,48px);position:sticky;top:0;background:var(--ivory);z-index:10;">
+    <button onClick="{{ setHer }}" style="{{ herTabStyle }}">For Her</button>
+    <button onClick="{{ setHim }}" style="{{ himTabStyle }}">For Him</button>
+  </div>
+
+  <section style="max-width:760px;margin:0 auto;padding:0 clamp(20px,6vw,64px) clamp(80px,10vw,120px);">
+    <sc-for list="{{ activeCategories }}" as="cat" hint-placeholder-count="6">
+      <div style="border-bottom:1px solid var(--line);">
+        <button onClick="{{ cat.toggle }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;cursor:pointer;padding:22px 0;text-align:left;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.4vw,1.7rem);color:var(--ink);">{{ cat.title }}</span>
+          <span style="font-size:1.3rem;color:var(--stone);">{{ cat.marker }}</span>
+        </button>
+        <sc-if value="{{ cat.open }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 0 26px;">
+            <sc-for list="{{ cat.items }}" as="item" hint-placeholder-count="4">
+              <div style="display:flex;align-items:baseline;gap:14px;padding:10px 0;">
+                <span style="font-size:1.02rem;color:var(--ink);">{{ item.name }}</span>
+                <span style="flex:1;border-bottom:1px dotted var(--line);transform:translateY(-5px);"></span>
+                <span style="font-size:0.95rem;color:var(--stone);white-space:nowrap;">{{ item.price }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="background:var(--forest-deep);color:var(--ivory);padding:clamp(48px,7vw,72px) clamp(20px,6vw,64px);text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.4rem,3vw,1.9rem);margin:0 0 24px;">Ready to book your visit?</p>
+    <a href="https://ig.me/m/thesalonsiliguri" target="_blank" rel="noopener" style="display:inline-block;font-size:0.95rem;letter-spacing:0.04em;background:var(--brass);color:var(--forest-deep);padding:14px 32px;">Message us on Instagram</a>
+  </section>
+
+  <a href="https://ig.me/m/thesalonsiliguri" target="_blank" rel="noopener" aria-label="Book your visit on Instagram" style="position:fixed;bottom:22px;right:22px;z-index:55;background:var(--forest);color:var(--ivory);font-size:0.85rem;letter-spacing:0.03em;padding:13px 22px;box-shadow:0 8px 24px oklch(0.24 0.014 55 / 0.25);">Book your visit</a>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { gender: 'her', openHer: 'Hair Rituals', openHim: 'Hair & Beard Rituals' };
+
+  buildCategories(raw, openKey, field) {
+    return raw.map(cat => ({
+      key: cat.title,
+      title: cat.title,
+      items: cat.items,
+      open: cat.title === openKey,
+      marker: cat.title === openKey ? '−' : '+',
+      toggle: () => this.setState(s => ({ [field]: s[field] === cat.title ? null : cat.title })),
+    }));
+  }
+
+  renderVals() {
+    const herRaw = [
+      { title: 'Hair Rituals', items: [
+        { name: 'Haircut (Classic / Layers)', price: '₹400 / 550' },
+        { name: 'Hairspa — Hydraboost Repair ★', price: '₹750' },
+        { name: 'Anti Dandruff Hair Spa', price: '₹850' },
+        { name: 'Keratin Protein Hair Spa', price: '₹900' },
+        { name: 'Anti Hairfall Hair Spa', price: '₹900' },
+        { name: 'Hot Oil Massage', price: '₹650' },
+      ]},
+      { title: 'Colour Rituals', items: [
+        { name: 'Hair Colour Touch-up / Global', price: '₹800 / 1500+' },
+        { name: 'Ammonia Free', price: '₹1000 / 1700+' },
+        { name: 'Premium Colour', price: 'On consultation' },
+        { name: 'Advanced Fashion / Balayage', price: 'On consultation' },
+        { name: 'Foil Highlights (per foil)', price: '₹100+' },
+      ]},
+      { title: 'Nano & Botox', items: [
+        { name: 'Nanoplastia (Short / Medium / Long)', price: '₹4500 / 5500 / 6500' },
+        { name: 'Botox Treatment (Short / Med / Long)', price: '₹4300 / 5300 / 6300' },
+      ]},
+      { title: 'Skincare Rituals', items: [
+        { name: 'Classic Cleanup', price: '₹500' },
+        { name: 'THE Herb Cleanup', price: '₹700' },
+        { name: 'Instant Glow Facial', price: '₹900' },
+        { name: 'Advanced D-Tan Facial', price: '₹1100' },
+        { name: 'Vitamin C Facial', price: '₹1200' },
+        { name: 'Gold Facial', price: '₹1500' },
+        { name: 'Acne Treatment Facial', price: '₹1400' },
+        { name: 'Ozone Treatment Facial', price: '₹1650' },
+        { name: 'THE HydraBooster Treatment ★', price: '₹2500' },
+        { name: 'Anti Wrinkle Facial', price: '₹2500' },
+        { name: 'Anti Ageing Facial', price: '₹2700' },
+      ]},
+      { title: 'D-Tan', items: [
+        { name: 'Face / Neck', price: '₹500 / 600' },
+        { name: 'Arms (Half / Full)', price: '₹600 / 800' },
+        { name: 'Legs (Feet / Half Legs)', price: '₹600 / 800' },
+      ]},
+      { title: 'Hands & Feet Care', items: [
+        { name: 'Manicure / Pedicure', price: '₹500 / 600' },
+        { name: 'Himalayan Herbal Mani / Pedi ★', price: '₹800 / 1000' },
+        { name: 'Premium Mani / Pedi', price: '₹700 / 900' },
+        { name: 'Luxury Mani / Pedi', price: '₹1000 / 1500' },
+      ]},
+      { title: 'Waxing', items: [
+        { name: 'Underarms', price: '₹150' },
+        { name: 'Arms (Half / Full)', price: '₹300 / 600' },
+        { name: 'Legs (Half / Full)', price: '₹600 / 1000' },
+      ]},
+      { title: 'Threading', items: [
+        { name: 'Eyebrows', price: '₹50' },
+        { name: 'Upper Lip', price: '₹40' },
+        { name: 'Full Face', price: '₹150' },
+      ]},
+      { title: 'Massages', items: [
+        { name: 'Face Massage', price: '₹900' },
+        { name: 'Shoulder & Head', price: '₹900' },
+        { name: 'Foot Massage', price: '₹800' },
+      ]},
+      { title: 'Packages', items: [
+        { name: 'THE Hair Transformation Package — Haircut with wash + Hair Spa + Head Massage', price: '10% off total' },
+        { name: 'THE Hair & Skin Rejuvenation Package — Haircut with wash + HydraBooster (hair) + Mani/Pedi + Advanced D-Tan Facial', price: '15% off total' },
+      ]},
+    ];
+
+    const himRaw = [
+      { title: 'Hair & Beard Rituals', items: [
+        { name: 'Haircut with Hair Wash', price: '₹300' },
+        { name: 'Beard Styling', price: '₹140' },
+        { name: 'Hair Colour Touch-up / Global', price: '₹550 / 750' },
+        { name: 'Ammonia Free', price: '₹700 / 900' },
+        { name: 'Premium Colour', price: 'On consultation' },
+        { name: 'Cap Highlights', price: '₹850' },
+        { name: 'Fashion Hair Colour (Short / Med)', price: '₹1500' },
+        { name: 'Fashion Hair Colour (Long)', price: '₹1800' },
+        { name: 'Hot Oil Massage', price: '₹650' },
+        { name: 'THE Hair Spa', price: '₹600 onwards' },
+      ]},
+      { title: 'Skincare Rituals', items: [
+        { name: 'Classic Cleanup', price: '₹500' },
+        { name: 'THE Herb Cleanup', price: '₹700' },
+        { name: 'Instant Glow Facial', price: '₹900' },
+        { name: 'Advanced D-Tan Facial', price: '₹1100' },
+        { name: 'Vitamin C Facial', price: '₹1200' },
+        { name: 'Gold Facial', price: '₹1500' },
+        { name: 'Acne Treatment Facial', price: '₹1400' },
+        { name: 'Ozone Treatment Facial', price: '₹1650' },
+        { name: 'THE HydraBooster Treatment ★', price: '₹2500' },
+        { name: 'Anti Wrinkle Facial', price: '₹2500' },
+        { name: 'Anti Ageing Facial', price: '₹2700' },
+      ]},
+      { title: 'Hands & Feet Care', items: [
+        { name: 'Manicure / Pedicure', price: '₹500 / 600' },
+        { name: 'Himalayan Herbal Mani / Pedi ★', price: '₹800 / 1000' },
+        { name: 'Premium Mani / Pedi', price: '₹700 / 900' },
+        { name: 'Luxury Mani / Pedi', price: '₹1000 / 1500' },
+      ]},
+      { title: 'Massages', items: [
+        { name: 'Face / Head', price: '₹900' },
+      ]},
+      { title: 'Packages', items: [
+        { name: 'THE Gentleman Package — Haircut + Beard + Head Massage', price: '10% off total' },
+        { name: 'THE Hair & Skin Rejuvenation Package — Haircut with wash + Hot Oil Massage + HydraBooster + Mani/Pedi + Advanced D-Tan', price: '15% off total' },
+      ]},
+    ];
+
+    const tabBase = "font-family:'Work Sans',sans-serif;background:none;border:none;cursor:pointer;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;padding-bottom:8px;";
+    const activeTab = tabBase + "color:oklch(0.3 0.045 150);border-bottom:2px solid oklch(0.3 0.045 150);";
+    const inactiveTab = tabBase + "color:oklch(0.5 0.02 60);border-bottom:2px solid transparent;";
+
+    return {
+      gender: this.state.gender,
+      setHer: () => this.setState({ gender: 'her' }),
+      setHim: () => this.setState({ gender: 'him' }),
+      herTabStyle: this.state.gender === 'her' ? activeTab : inactiveTab,
+      himTabStyle: this.state.gender === 'him' ? activeTab : inactiveTab,
+      activeCategories: this.state.gender === 'her'
+        ? this.buildCategories(herRaw, this.state.openHer, 'openHer')
+        : this.buildCategories(himRaw, this.state.openHim, 'openHim'),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
